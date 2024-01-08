@@ -11,6 +11,7 @@ import HealthKit
 import CareKit
 import CareKitStore
 import HealthKitUI
+import Combine
 
 protocol NewTaskViewControllerDelegare: AnyObject {
     func saveNewTask(task: [OCKAnyTask])
@@ -19,9 +20,23 @@ protocol NewTaskViewControllerDelegare: AnyObject {
 class NewTaskViewController: UIViewController {
     
     var newItemView: NewItemView? = nil
-    
+        
     var event = Event()
+    
     weak var delegate: NewTaskViewControllerDelegare?
+    
+    // Define publisher
+    @Published private var taskTitle = ""
+    
+    private var validToSubmit: AnyPublisher<Bool, Never> {
+        return $taskTitle
+            .map { name in
+                return !name.isEmpty
+            }.eraseToAnyPublisher()
+    }
+    
+    // Define subscriber
+    private var saveButtonSubscriber: AnyCancellable?
     
     override func loadView() {
         newItemView = NewItemView()
@@ -33,6 +48,11 @@ class NewTaskViewController: UIViewController {
         setupView()
         cellRegistration()
         setupNavBar()
+        
+        // Hook subscriber up to publisher
+        saveButtonSubscriber = validToSubmit
+            .receive(on: RunLoop.main)
+            .assign(to: \.!.isEnabled, on: navigationItem.rightBarButtonItem)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -55,6 +75,7 @@ class NewTaskViewController: UIViewController {
         navigationItem.rightBarButtonItem =
             UIBarButtonItem(title: "Save", style: .plain, target: self,
                             action: #selector(didTapSaveButton))
+        navigationItem.rightBarButtonItem?.isEnabled = false
         let backButton = UIButton()
         backButton.setTitle("Back", for: .normal)
         backButton.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
@@ -523,7 +544,13 @@ extension NewTaskViewController: UICollectionViewDataSource {
     }
     
     @objc func textFieldDidChange(sender: UITextField) {
-        event.name = sender.text
+        if let text = sender.text {
+            taskTitle = text
+            event.name = taskTitle
+        } else {
+            taskTitle = ""
+            event.name = taskTitle
+        }
     }
     
     @objc func didChangeStartDatePickerValue(sender: UIDatePicker) {

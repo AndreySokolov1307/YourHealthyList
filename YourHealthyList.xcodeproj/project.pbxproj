@@ -149,12 +149,12 @@
 		327805942B3C02ED00B219E3 /* YourHealthyList */ = {
 			isa = PBXGroup;
 			children = (
+				3263FFB92B458E6300296095 /* Application */,
 				3263FFCF2B4598D300296095 /* SupplementaryViews */,
 				3263FFBC2B458EA800296095 /* Cells */,
-				3263FFB92B458E6300296095 /* Application */,
 				3263FFB82B458E5A00296095 /* Models */,
-				3263FFB72B458E5100296095 /* Controllers */,
 				3263FFB62B458E4500296095 /* Views */,
+				3263FFB72B458E5100296095 /* Controllers */,
 				3278059E2B3C02F100B219E3 /* Assets.xcassets */,
 				327805A02B3C02F100B219E3 /* LaunchScreen.storyboard */,
 				327805A32B3C02F100B219E3 /* Info.plist */,
@@ -395,6 +395,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4A3Z74ZVFC;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YourHealthyList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -422,6 +423,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4A3Z74ZVFC;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YourHealthyList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
